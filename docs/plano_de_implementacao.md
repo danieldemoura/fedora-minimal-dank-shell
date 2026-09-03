@@ -57,6 +57,7 @@ Abaixo está o catálogo detalhado de **todos os pacotes** instalados pelo `setu
 - **`nm-connection-editor`**: Editor gráfico de conexões e perfis de rede.
 - **`cups`**: Daemon oficial do sistema de impressão do Linux (Common UNIX Printing System).
 - **`cups-browsed`**: Daemon para busca e adição automática de impressoras na rede local.
+- **`cups-pk-helper`**: Helper de autorização Polkit (PolicyKit) para alteração de configurações e adição de impressoras no CUPS por usuários não-root sem depender do terminal.
 - **`avahi`**: Serviço de resolução de nomes e descoberta de rede mDNS/DNS-SD (Zeroconf).
 - **`sane-backends`**: Conjunto de drivers e suporte a digitalizadores (Scanners).
 - **`simple-scan`**: Aplicativo gráfico para digitalização rápida de documentos.
@@ -85,6 +86,7 @@ Abaixo está o catálogo detalhado de **todos os pacotes** instalados pelo `setu
 - **`evince-thumbnailer`**: Gerador de pré-visualizações para documentos PDF.
 - **`gdk-pixbuf2`**: Biblioteca base para carregamento e manipulação de formatos de imagem GTK.
 - **`qt5-qtimageformats` / `qt6-qtimageformats`**: Suporte para renderização de formatos avançados de imagem em aplicativos Qt (ex: AVIF, HEIC).
+- **`kf6-kimageformats` / `kf5-kimageformats`**: Plugins do KDE/Qt Frameworks para carregamento de imagens avançadas (HDR, EXR, HEIF/HEIC, KRA, OpenRaster, PSD) no motor Qt6 do Dank Material Shell.
 - **`file-roller`**: Gerenciador gráfico de arquivos compactados e descompactação.
 - **`p7zip` / `p7zip-plugins`**: Utilitário multithread de alta compressão para formatos `.7z` e `.zip`.
 - **`unzip`**: Ferramenta de extração para arquivos comprimidos `.zip`.
