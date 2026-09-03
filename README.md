@@ -1,143 +1,59 @@
-# 🚀 Fedora Minimal Setup Script — Wayland & Desktop Shells
+# 🚀 Fedora Minimal Base Setup Script — Dank Material Shell & Wayland
 
 [![Fedora](https://img.shields.io/badge/Fedora-40%2B-blue?logo=fedora)](https://getfedora.org/)
 [![Wayland](https://img.shields.io/badge/Wayland-Niri%20%7C%20Hyprland-orange?logo=wayland)](https://wayland.freedesktop.org/)
-[![Hardware](https://img.shields.io/badge/Hardware-Lenovo%20Legion%20Slim%205i-red?logo=lenovo)](https://lenovo.com)
+[![Hardware](https://img.shields.io/badge/Hardware-Universal%20(Intel%20%7C%20AMD%20%7C%20NVIDIA)-green)](https://fedoraproject.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Um script de instalação e configuração automatizada em **Bash TUI** para transformar o **Fedora Everything (Minimal Install)** em uma estação de trabalho moderna, de alta performance e visual impecável usando compositores **Wayland (Niri ou Hyprland)** e desktop shells (**Noctalia ou Dank Material Shell**).
-
-Projetado sob medida para notebooks de alta performance com placas híbridas, com foco no **Lenovo Legion Slim 5i (Intel i5 13ª Ger. + NVIDIA RTX 3050)**.
+Um script de instalação automatizada e modular em Bash para transformar o **Fedora Everything (Minimal Install)** em um sistema base limpo, ultra-rápido e 100% funcional "out-of-the-box" (como Ubuntu/Linux Mint), encadeando no final a instalação oficial do **Dank Material Shell (DMS)** para escolha do seu compositor Wayland favorito (**Niri** ou **Hyprland**).
 
 ---
 
 ## 🎨 Destaques do Projeto
 
-- **🖥️ Escolha de Compositor:**
-  - **Niri:** Scroll horizontal infinito, janelas organizadas dinamicamente e configurador gráfico **NiriMod** em GTK4.
-  - **Hyprland:** Tiling dinâmico clássico com animações ultra-fluidas e cantos arredondados.
-  - **Standalone:** Instalação pura sem shell pesado usando **Fuzzel** + **tuigreet**.
-- **🌌 Desktop Shells Modernos:**
-  - **Noctalia:** Shell minimalista e nativo para Fedora.
-  - **Dank Material Shell (DMS):** Interface baseada em Material You completa com painel de controle e notificações.
-- **⚡ Seletor de Aplicativos Interativo (TUI):**
-  - Menu interativo no terminal (navegação por setas e barra de espaço) para escolher entre 27+ apps categorizados por tipo (`[RPM]`, `[Flatpak]`, `[Script]`).
-- **🎮 Drivers e Aceleração de Hardware:**
-  - Suporte automático a GPU Híbrida (`switcheroo-control` para alternar Intel / NVIDIA).
-  - Driver NVIDIA proprietário + aceleração VA-API (`nvidia-vaapi-driver`).
-  - Teclas de atalho FN integradas (Brilho com `brightnessctl`, Mídia com `playerctl`, Volume com `wpctl`).
-- **🎥 Screen Sharing & Multimídia Completa:**
-  - Suporte a compartilhamento de tela em videochamadas (Discord, Meet, Zoom) via `pipewire-gstreamer` + `xwaylandvideobridge` + XDG Desktop Portals.
-  - Codecs H.264, AAC, MP4, WebP, SVG e miniaturas completas para o Nautilus.
-- **📸 Screenshots Nativos com Anotação:**
-  - Integração com **Satty** + **grim** + **slurp** (anotação rápida, seta, blur e texto) acionado pela tecla `Print`.
-  - Ferramenta nativa `niri-shot` para Niri.
-- **🛠️ Ambiente de Desenvolvimento:**
-  - **FNM (Fast Node Manager):** Gerenciador ultra-rápido de Node.js em Rust integrado ao `.bashrc`.
-  - VS Code, Git, Podman (pré-selecionado) e Docker opcional.
+- **⚡ Instalação Limpa e Minimalista:**
+  - Parte do **Fedora Minimal Install** (sem GNOME Shell pesado, sem mineradores de busca ou bloatware).
+  - Sistema 100% limpo: **sem aplicativos pessoais ou de desenvolvimento pré-instalados**. Você escolhe o que instalar na pós-instalação.
+- **🖥️ Compatibilidade Universal de Hardware:**
+  - Detecção inteligente via `lspci` de placas de vídeo (NVIDIA, AMD ou Intel) e instalação automática dos drivers adequados (ex: `akmod-nvidia` + `nvidia-vaapi-driver` + `switcheroo-control`).
+  - Gerenciamento adaptativo de energia (ajustes para notebook vs desktop).
+- **🎵 Áudio, Conectividade e Codecs Totais:**
+  - Áudio PipeWire + WirePlumber + controle GTK4 `pwvucontrol`.
+  - Bluetooth com `bluez` + `blueman` e Wi-Fi / Rede com `NetworkManager`.
+  - Codecs multimídia 100% completos via RPM Fusion e GStreamer (H.264, HEVC/H.265, AV1, VP8/VP9, AAC, MP3, WebP, SVG, AVIF).
+- **📁 Nautilus Completo & Descompactação Ultra-Rápida:**
+  - Miniaturas/Thumbnails para todos os arquivos (fotos, vetor, WebP, AVIF, PDFs e vídeos).
+  - Suporte a extração de arquivos comprimidos (zip, 7z, tar, zstd) com multithreading.
+- **📸 Screenshots Nativos com Anotação e Desfoque (Blur):**
+  - Integração com **`grim + slurp + satty`** na tecla `Print` (seleção de região, setas, texto, e **blur para ocultar dados sensíveis**).
+- **🛡️ Polkit Agent GTK4 Nativo:**
+  - Janelas de autenticação de senha de administrador integradas nativamente ao Dank Material Shell em GTK4 / Libadwaita Wayland.
+- **🌌 Integração Oficial com Dank Material Shell:**
+  - No encerramento da preparação da base do sistema, executa o instalador oficial do DMS (`curl -fsSL https://install.danklinux.com | sh`) para personalização gráfica de compositores e terminal.
 
 ---
 
-## 📥 Pré-requisitos e Instalação do Sistema Base
+## 📥 Como Usar
 
-1. **Baixar o Fedora Everything:**
-   - Faça o download da ISO **Fedora Everything (Netinstall)** no site oficial do Fedora.
-2. **Instalação Minimal:**
-   - Durante a instalação do Fedora, na tela de seleção de pacotes/software, escolha a opção **Minimal Install** (sem ambiente GNOME ou KDE padrão).
-3. **Secure Boot (Aviso):**
-   - Se o Secure Boot estiver ativado na BIOS do seu notebook Lenovo Legion, pode ser necessário desativá-lo para a assinatura dos módulos da NVIDIA (`akmod-nvidia`).
+### 1. Pré-requisitos
+1. Baixar a ISO **Fedora Everything (Netinstall)** no site oficial.
+2. Na instalação do Fedora, escolha a opção **Minimal Install**.
 
----
-
-## 🚀 Como Executar o Script
-
-Após o primeiro boot na instalação minimalista do Fedora:
+### 2. Executar o Script
+Após o primeiro boot no terminal:
 
 ```bash
-# 1. Clone ou baixe este repositório:
+# Clone este repositório:
 git clone https://github.com/danieldemoura/fedora-shell-setup.git
 cd fedora-shell-setup
 
-# 2. Dê permissão de execução ao script:
+# Dê permissão e execute:
 chmod +x setup.sh
-
-# 3. Execute o instalador:
 ./setup.sh
 ```
 
 ---
 
-## 📋 Lista de Aplicativos Disponíveis
+## 📋 Documentação Técnica
 
-| Grupo                   | Aplicativo                           | Tipo                 | Padrão |
-| :---------------------- | :----------------------------------- | :------------------- | :----: |
-| **Navegadores**         | Brave Browser                        | RPM (repo oficial)   |   ✅   |
-|                         | Firefox                              | Flatpak              |   ❌   |
-| **Terminal & Sistema**  | Kitty Terminal                       | RPM                  |   ✅   |
-|                         | Fastfetch                            | RPM                  |   ✅   |
-| **GNOME / Utilitários** | Nautilus (Gerenciador de Arquivos)   | RPM                  |   ✅   |
-|                         | Calculadora                          | Flatpak              |   ✅   |
-|                         | Loupe (Visualizador de Imagens)      | Flatpak              |   ✅   |
-|                         | Evince (Leitor de PDF)               | Flatpak              |   ✅   |
-|                         | Disks (Gerenciador de Discos)        | Flatpak              |   ✅   |
-|                         | SimpleScan (Scanner)                 | Flatpak              |   ✅   |
-|                         | Baobab (Analisador de Disco)         | Flatpak              |   ❌   |
-|                         | Tabela de Caracteres                 | Flatpak              |   ❌   |
-| **Multimídia**          | MPC-QT (Media Player)                | Flatpak              |   ✅   |
-|                         | pwvucontrol (Controle de Áudio GTK4) | Flatpak              |   ✅   |
-|                         | VLC Media Player                     | Flatpak              |   ❌   |
-| **Comunicação**         | Discord                              | Flatpak              |   ❌   |
-|                         | Telegram Desktop                     | Flatpak              |   ❌   |
-|                         | WhatsApp (ZapZap)                    | Flatpak              |   ❌   |
-| **Utilitários**         | Warehouse (Gerenciador Flatpak)      | Flatpak              |   ✅   |
-|                         | Flatseal (Gerenciador de Permissões) | Flatpak              |   ❌   |
-| **Desenvolvimento**     | Dev Toolbox                          | Flatpak              |   ❌   |
-|                         | Visual Studio Code                   | RPM (repo Microsoft) |   ✅   |
-|                         | Git                                  | RPM                  |   ✅   |
-|                         | Node.js (via FNM)                    | Script (curl)        |   ✅   |
-|                         | Podman Containers                    | RPM                  |   ✅   |
-|                         | Distrobox                            | RPM                  |   ❌   |
-|                         | Docker Engine                        | RPM                  |   ❌   |
-
----
-
-## ⌨️ Teclas de Atalho Padrão (Cheat Sheet)
-
-> A tecla `Mod` corresponde à tecla **Super / Windows**.
-
-| Atalho            | Ação                                              |
-| :---------------- | :------------------------------------------------ |
-| `Mod + Return`    | Abre o Terminal (**Kitty**)                       |
-| `Mod + E`         | Abre o Gerenciador de Arquivos (**Nautilus**)     |
-| `Mod + B`         | Abre o Navegador (**Brave**)                      |
-| `Mod + Q`         | Fecha a janela ativa                              |
-| `Mod + D`         | Launcher de aplicativos (Fuzzel)                  |
-| `Mod + Shift + C` | Abre o configurador gráfico **NiriMod** (se Niri) |
-| `Print`           | Captura de tela inteira com **Satty**             |
-| `Shift + Print`   | Captura de região com **Satty** / `niri-shot`     |
-| `Fn + Volume`     | Aumenta / diminui / muta áudio via `wpctl`        |
-| `Fn + Brilho`     | Ajusta o brilho da tela via `brightnessctl`       |
-| `Fn + Mídia`      | Play / Pause / Próxima faixa via `playerctl`      |
-
----
-
-## 📁 Estrutura do Repositório
-
-```
-.
-├── setup.sh                     # Script Bash interativo principal (TUI)
-├── configs/                     # Templates de Dotfiles pré-configurados
-│   ├── niri-config.kdl          # Configuração base do Niri (Layout, atalhos, FN keys)
-│   ├── hyprland.conf            # Configuração base do Hyprland (Bordas, blur, atalhos)
-│   ├── portals-niri.conf        # Configuração de XDG Desktop Portal para Niri
-│   └── portals-hyprland.conf    # Configuração de XDG Desktop Portal para Hyprland
-└── docs/                        # Documentação técnica e histórico de decisões
-    ├── plano_de_implementacao.md
-    └── plano_de_implementacao_v3.md
-```
-
----
-
-## 📜 Licença
-
-Este projeto é disponibilizado sob a licença [MIT](LICENSE). Sinta-se livre para adaptar e redistribuir!
+Veja o plano detalhado de implementação consolidado em [`docs/plano_de_implementacao.md`](docs/plano_de_implementacao.md).
