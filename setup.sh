@@ -198,6 +198,7 @@ info "Instalando suporte a Impressoras e Scanner..."
 sudo dnf install -y --skip-unavailable \
   cups \
   cups-browsed \
+  cups-pk-helper \
   avahi \
   sane-backends \
   simple-scan
@@ -297,7 +298,9 @@ sudo dnf install -y --skip-unavailable \
   evince-thumbnailer \
   gdk-pixbuf2 \
   qt5-qtimageformats \
-  qt6-qtimageformats
+  qt6-qtimageformats \
+  kf6-kimageformats \
+  kf5-kimageformats
 
 info "Instalando extração e compactação ultra-rápida de arquivos (zip, 7z, tar, zstd, unrar)..."
 sudo dnf install -y --skip-unavailable \
