@@ -1,0 +1,29 @@
+# Satty Configuration File (GTK4 / Wayland Screenshot & Annotation)
+
+[general]
+# Abrir em tela cheia por padrão
+fullscreen = false
+# Sair após copiar/salvar
+early-exit = true
+# Ferramenta inicial ao abrir (brush, rectangle, text, blur)
+initial-tool = "brush"
+# Comando para copiar para a área de transferência no Wayland
+copy-command = "wl-copy"
+# Tamanho padrão das anotações
+annotation-size-factor = 1.0
+# Diretório padrão para salvar capturas de tela
+default-filepath = "$HOME/Imagens/Capturas/screenshot_%Y-%m-%d_%H-%M-%S.png"
+# Salvar automaticamente após copiar
+save-after-copy = false
+
+[color-palette]
+# Paleta de cores moderna (Material / Dark)
+palette = [
+  "#f38ba8", # Vermelho
+  "#a6e3a1", # Verde
+  "#89b4fa", # Azul
+  "#f9e2af", # Amarelo
+  "#cba6f7", # Roxo
+  "#ffffff", # Branco
+  "#11111b"  # Preto
+]
