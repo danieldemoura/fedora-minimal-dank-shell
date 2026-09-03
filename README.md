@@ -14,8 +14,9 @@ Um script de instalação automatizada e modular em Bash para transformar o **Fe
 - **⚡ Instalação Limpa e Minimalista:**
   - Parte do **Fedora Minimal Install** (sem GNOME Shell pesado, sem mineradores de busca ou bloatware).
   - Sistema 100% limpo: **sem aplicativos pessoais ou de desenvolvimento pré-instalados**. Você escolhe o que instalar na pós-instalação.
-- **🖥️ Compatibilidade Universal de Hardware:**
-  - Detecção inteligente via `lspci` de placas de vídeo (NVIDIA, AMD ou Intel) e instalação automática dos drivers adequados (ex: `akmod-nvidia` + `nvidia-vaapi-driver` + `switcheroo-control`).
+- **🖥️ Compatibilidade Universal de Hardware & GPU Híbrida:**
+  - Detecção inteligente via `lspci` de placas de vídeo (NVIDIA, AMD ou Intel) e instalação automática dos drivers adequados (ex: `akmod-nvidia` + `nvidia-vaapi-driver`).
+  - Suporte e ativação automática do **`switcheroo-control`** para alternância dinâmica D-Bus entre GPU integrada (Intel/AMD) e GPU dedicada (NVIDIA).
   - Gerenciamento adaptativo de energia (ajustes para notebook vs desktop).
 - **🎵 Áudio, Conectividade e Codecs Totais:**
   - Áudio PipeWire + WirePlumber + controle GTK4 `pwvucontrol`.
@@ -51,6 +52,37 @@ cd fedora-shell-setup
 chmod +x setup.sh
 ./setup.sh
 ```
+
+---
+
+## 📦 Lista Completa de Pacotes Instalados
+
+| Categoria | Pacote | Função / Descrição |
+| :--- | :--- | :--- |
+| **GPU & Híbrido** | `switcheroo-control` | Daemon D-Bus para alternância dinâmica entre GPU integrada (Intel/AMD) e dedicada (NVIDIA) |
+| | `akmod-nvidia` | Driver proprietário NVIDIA com recompilação automática de módulos do kernel |
+| | `xorg-x11-drv-nvidia-cuda` | Suporte a CUDA e aceleração gráfica NVIDIA |
+| | `nvidia-vaapi-driver` | Aceleração por hardware VA-API para placas NVIDIA no Wayland |
+| | `intel-media-driver` | Driver VA-API para aceleração de vídeo em GPUs Intel |
+| | `mesa-va-drivers` | Driver VA-API para aceleração de vídeo em GPUs AMD Radeon |
+| **Energia & Notebook**| `power-profiles-daemon`| Gerenciador de perfis de energia (Economia, Balanceado, Desempenho) |
+| | `upower` | Daemon de abstração para gerenciamento de bateria |
+| | `brightnessctl` | Utilitário para ajuste do brilho da tela nas teclas FN |
+| | `playerctl` | Controle de reprodução de áudio e vídeo nas teclas FN |
+| **Áudio & Conectividade** | `pipewire` / `wireplumber` | Servidor multimídia Wayland de baixa latência e gerenciador de rotas |
+| | `pipewire-alsa` / `pulse` / `jack` | Pontes de compatibilidade de áudio |
+| | `pwvucontrol` | Interface GTK4 para controle avançado de volume |
+| | `bluez` / `blueman` | Pilha Bluetooth oficial e gerenciador gráfico de pareamento |
+| | `NetworkManager` / `wifi` | Gerenciador de conexões de rede e redes sem fio |
+| | `cups` / `simple-scan` | Sistema de impressão e ferramenta de digitalização de documentos |
+| **Codecs Mídia** | `ffmpeg` | Suíte multimídia completa do RPM Fusion |
+| | `@multimedia` / `gstreamer1-plugins` | Plugins para H.264, HEVC/H.265, AV1, VP8/VP9, openh264, MP3, AAC, FLAC |
+| **Nautilus & Arquivos** | `nautilus` / `gvfs` / `udisks2` | Gerenciador de arquivos, montagem automática MTP/USB/SMB |
+| | `glycin-thumbnailer` / `ffmpegthumbnailer` | Miniaturas de fotos, imagens vetor, WebP, AVIF e vídeos |
+| | `file-roller` / `p7zip` / `zstd` / `unzip` | Extração ultra-rápida de arquivos comprimidos |
+| **Visual & Screenshots**| `grim` / `slurp` / `satty` | Captura de tela com anotação (setas, textos) e **desfoque/blur de dados sensíveis** |
+| | `google-noto-fonts` / `jetbrains-mono-nerd-font` | Fontes completas, Emojis em HD e ícones para o terminal/shell |
+| | `greetd` / `tuigreet` | Display Manager para login gráfico com senha |
 
 ---
 
