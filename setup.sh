@@ -152,6 +152,9 @@ sudo dnf install -y \
   https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_VERSION}.noarch.rpm \
   https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_VERSION}.noarch.rpm || true
 
+info "Garantindo utilitários de repositório (dnf-plugins-core e flatpak)..."
+sudo dnf install -y dnf-plugins-core flatpak
+
 info "Configurando o repositório Flathub..."
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
