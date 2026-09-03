@@ -8,7 +8,7 @@
 
 | Item | Decisão Final |
 | :--- | :--- |
-| **ISO Base** | Fedora Everything (Netinstall) — Escolher **Minimal Install** |
+| **ISO Base** | Fedora Everything (Netinstall) — Escolher **Minimal Install** / **Custom Operating System** e marcar **`Common NetworkManager Submodules`** e **`Standard`** para garantir rede no primeiro boot. |
 | **Compatibilidade de Hardware** | **Universal** (Notebooks e Desktops; Intel, AMD e NVIDIA). Detecção automática via `lspci` para GPU e chassis type (`/sys/class/dmi/id/chassis_type`). |
 | **GPU Híbrida (Dual GPU)** | Configuração e ativação automática do **`switcheroo-control`** para alternância dinâmica D-Bus entre GPU integrada (Intel/AMD) e dedicada (NVIDIA). |
 | **Login e Autenticação** | **Sem Auto-login**. Tela de login gráfica via `greetd` + `tuigreet` habilitada. |

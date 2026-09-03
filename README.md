@@ -38,7 +38,9 @@ Um script de instalação automatizada e modular em Bash para transformar o **Fe
 
 ### 1. Pré-requisitos
 1. Baixar a ISO **Fedora Everything (Netinstall)** no site oficial.
-2. Na instalação do Fedora, escolha a opção **Minimal Install**.
+2. Na tela de **Seleção de Programas** do instalador do Fedora:
+   - Selecione **Fedora Custom Operating System** ou **Minimal Install**.
+   - No painel da direita, marque **`Common NetworkManager Submodules`** *(essencial para a internet Wi-Fi/Ethernet funcionar logo no primeiro boot)* e **`Standard`**.
 
 ### 2. Executar o Script
 Após o primeiro boot no terminal:
