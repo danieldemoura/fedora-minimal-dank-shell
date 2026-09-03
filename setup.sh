@@ -159,8 +159,8 @@ info "Configurando o repositório Flathub..."
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 info "Habilitando repositórios COPR necessários (DMS)..."
-sudo dnf copr enable -y avengemedia/dms || warning "Não foi possível ativar COPR avengemedia/dms (será gerenciado pelo instalador DMS)"
-sudo dnf copr enable -y solopasha/hyprland || true
+sudo dnf copr enable -y avengemedia/dms 2>/dev/null || true
+sudo dnf copr enable -y solopasha/hyprland 2>/dev/null || true
 
 success "Repositórios configurados com sucesso!"
 
@@ -170,30 +170,32 @@ success "Repositórios configurados com sucesso!"
 section "ETAPA 3: Subsistemas de Áudio, Rede, Bluetooth e Impressão"
 
 info "Instalando PipeWire (Áudio nativo de baixa latência e controle)..."
-sudo dnf install -y \
+sudo dnf install -y --skip-unavailable \
   pipewire \
   pipewire-alsa \
   pipewire-pulseaudio \
-  pipewire-jack \
   pipewire-gstreamer \
   wireplumber \
-  pwvucontrol
+  pavucontrol
+
+info "Instalando pwvucontrol (Controle de Áudio GTK4 via Flatpak)..."
+sudo flatpak install -y flathub io.github.saivert.pwvucontrol 2>/dev/null || true
 
 info "Instalando Bluetooth e gerenciador gráfico..."
-sudo dnf install -y \
+sudo dnf install -y --skip-unavailable \
   bluez \
   bluez-tools \
   blueman
 
 info "Instalando ferramentas de Rede e Wi-Fi..."
-sudo dnf install -y \
+sudo dnf install -y --skip-unavailable \
   NetworkManager \
   NetworkManager-wifi \
   iw \
   nm-connection-editor
 
 info "Instalando suporte a Impressoras e Scanner..."
-sudo dnf install -y \
+sudo dnf install -y --skip-unavailable \
   cups \
   cups-browsed \
   avahi \
@@ -210,38 +212,38 @@ section "ETAPA 4: Drivers de Vídeo e Gerenciamento Adaptativo de Energia"
 # Drivers NVIDIA
 if [ "$HAS_NVIDIA" = true ]; then
     info "Instalando drivers NVIDIA proprietários e aceleração VA-API..."
-    sudo dnf install -y akmod-nvidia xorg-x11-drv-nvidia-cuda nvidia-vaapi-driver switcheroo-control
+    sudo dnf install -y --skip-unavailable akmod-nvidia xorg-x11-drv-nvidia-cuda nvidia-vaapi-driver switcheroo-control
     warning "NVIDIA akmods recompilará os módulos de kernel em segundo plano."
 fi
 
 # Drivers Intel / AMD
 if [ "$HAS_INTEL_GPU" = true ]; then
     info "Instalando aceleração de vídeo hardware Intel (VA-API)..."
-    sudo dnf install -y intel-media-driver switcheroo-control
+    sudo dnf install -y --skip-unavailable intel-media-driver switcheroo-control
 fi
 
 if [ "$HAS_AMD_GPU" = true ]; then
     info "Instalando suporte de aceleração Mesa para GPU AMD..."
-    sudo dnf install -y mesa-va-drivers switcheroo-control
+    sudo dnf install -y --skip-unavailable mesa-va-drivers switcheroo-control
 fi
 
 # Suporte a GPU Híbrida (Switcheroo Control)
 if [ "$HAS_NVIDIA" = true ] || [ "$HAS_INTEL_GPU" = true ] || [ "$HAS_AMD_GPU" = true ]; then
     info "Configurando o switcheroo-control para alternância dinâmica de GPU Híbrida (Intel/AMD + NVIDIA)..."
-    sudo dnf install -y switcheroo-control
+    sudo dnf install -y --skip-unavailable switcheroo-control
 fi
 
 # Recursos de Notebook (Energia e teclas FN)
 if [ "$IS_LAPTOP" = true ]; then
     info "Instalando gerenciadores de energia para Notebook (Bateria vs Desempenho)..."
-    sudo dnf install -y \
+    sudo dnf install -y --skip-unavailable \
       power-profiles-daemon \
       upower \
       brightnessctl \
       playerctl
 else
     info "Instalando utilitário de controle de mídia nas teclas de atalho..."
-    sudo dnf install -y playerctl
+    sudo dnf install -y --skip-unavailable playerctl
 fi
 
 success "Drivers e gerenciamento de energia configurados!"
@@ -255,10 +257,10 @@ info "Substituindo ffmpeg-free pela versão completa com todos os patentes ativa
 sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing || true
 
 info "Instalando suíte multimídia completa do RPM Fusion..."
-sudo dnf install -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin || true
+sudo dnf install -y --skip-unavailable @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin || true
 
 info "Instalando plugins de áudio e vídeo adicionais (H.264, HEVC/H.265, AV1, VP8/VP9, openh264)..."
-sudo dnf install -y \
+sudo dnf install -y --skip-unavailable \
   gstreamer1-plugins-bad-freeworld \
   gstreamer1-plugins-ugly \
   gstreamer1-plugin-openh264 \
@@ -277,7 +279,7 @@ success "Codecs de mídia instalados!"
 section "ETAPA 6: Nautilus Completo, Miniaturas e Extração Ultra-Rápida de Arquivos"
 
 info "Instalando Nautilus e integrações de montagem (USB, MTP, SMB)..."
-sudo dnf install -y \
+sudo dnf install -y --skip-unavailable \
   nautilus \
   udisks2 \
   gvfs \
@@ -287,7 +289,7 @@ sudo dnf install -y \
   gvfs-fuse
 
 info "Instalando geradores de miniaturas (Thumbnails) para fotos, vetores, GIFs e vídeos..."
-sudo dnf install -y \
+sudo dnf install -y --skip-unavailable \
   glycin-thumbnailer \
   ffmpegthumbnailer \
   webp-pixbuf-loader \
@@ -298,7 +300,7 @@ sudo dnf install -y \
   qt6-qtimageformats
 
 info "Instalando extração e compactação ultra-rápida de arquivos (zip, 7z, tar, zstd, unrar)..."
-sudo dnf install -y \
+sudo dnf install -y --skip-unavailable \
   file-roller \
   p7zip \
   p7zip-plugins \
@@ -316,14 +318,14 @@ success "Nautilus totalmente equipado com miniaturas e suporte a arquivos!"
 section "ETAPA 7: Ferramenta de Screenshot (Satty), Fontes Nerd e Display Manager"
 
 info "Instalando captura de tela com anotação e borrão (grim + slurp + satty)..."
-sudo dnf install -y \
+sudo dnf install -y --skip-unavailable \
   grim \
   slurp \
   satty \
   wl-clipboard
 
 info "Instalando Fontes do Sistema e Ícones (Noto, Emoji, Nerd Fonts)..."
-sudo dnf install -y \
+sudo dnf install -y --skip-unavailable \
   google-noto-fonts-all \
   google-noto-emoji-fonts \
   jetbrains-mono-nerd-font \
@@ -331,7 +333,7 @@ sudo dnf install -y \
   hicolor-icon-theme
 
 info "Instalando utilitários essenciais de terminal..."
-sudo dnf install -y \
+sudo dnf install -y --skip-unavailable \
   curl \
   wget \
   nano \
@@ -339,7 +341,7 @@ sudo dnf install -y \
   htop
 
 info "Instalando Display Manager (greetd) para login gráfico com senha..."
-sudo dnf install -y greetd tuigreet
+sudo dnf install -y --skip-unavailable greetd tuigreet
 
 success "Ferramentas visuais e fontes instaladas!"
 
