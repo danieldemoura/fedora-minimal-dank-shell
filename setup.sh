@@ -137,7 +137,7 @@ case "$CHASSIS_TYPE" in
             info "Dispositivo detectado: Computador Desktop / Estação de Trabalho"
         fi
         ;;
-es meesac
+esac
 
 # ==============================================================================
 # ETAPA 2: REPOSITÓRIOS BASE (RPM FUSION & FLATHUB)
