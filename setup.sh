@@ -279,11 +279,10 @@ success "Codecs de mídia instalados!"
 # ==============================================================================
 section "ETAPA 6: Nautilus Completo, Miniaturas e Extração Ultra-Rápida de Arquivos"
 
-info "Instalando Nautilus, Visualizador de Imagens e integrações de montagem (USB, MTP, SMB)..."
+info "Instalando Nautilus, Visualizador de Imagens (Loupe GTK4) e integrações de montagem (USB, MTP, SMB)..."
 sudo dnf install -y --skip-unavailable \
   nautilus \
   loupe \
-  eog \
   udisks2 \
   gvfs \
   gvfs-mtp \

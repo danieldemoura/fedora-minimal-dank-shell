@@ -79,7 +79,6 @@ Abaixo está o catálogo detalhado de **todos os pacotes** instalados pelo `setu
 ### 📁 5. Nautilus Completo, Miniaturas e Suporte a Arquivos
 - **`nautilus`**: Gerenciador de arquivos oficial da plataforma GTK.
 - **`loupe`**: Visualizador de imagens oficial moderno do GNOME feito em GTK4 / Libadwaita com aceleração por hardware e navegação por gestos.
-- **`eog`**: Visualizador de imagens clássico (Eye of GNOME) para compatibilidade e fallback.
 - **`udisks2`**: Serviço de montagem automática e gerenciamento de mídias removíveis (pendrives, HDs externos).
 - **`gvfs`**: Sistema de arquivos virtual que permite ao Nautilus conectar a dispositivos MTP (celular), compartilhamentos SMB de rede, ISOs e arquivos compactados.
 - **`glycin-thumbnailer`**: Gerador moderno e seguro de miniaturas para formatos de imagem.
