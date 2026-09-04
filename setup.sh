@@ -335,13 +335,14 @@ sudo dnf install -y --skip-unavailable \
   adwaita-icon-theme \
   hicolor-icon-theme
 
-info "Instalando utilitários essenciais de terminal..."
+info "Instalando utilitários essenciais de terminal e XDG..."
 sudo dnf install -y --skip-unavailable \
   curl \
   wget \
   nano \
   bash-completion \
-  htop
+  htop \
+  xdg-user-dirs
 
 info "Instalando Navegador Web Padrão (Brave Browser via Flathub)..."
 sudo flatpak install -y flathub com.brave.Browser 2>/dev/null || true
@@ -357,6 +358,10 @@ success "Ferramentas visuais, navegador e fontes instalados!"
 section "ETAPA 8: Aplicando Configurações do Sistema e Dotfiles"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Geração das Pastas Padrão do Usuário (XDG User Dirs)
+info "Gerando diretórios padrão de usuário no idioma do sistema (Downloads, Documentos...)..."
+xdg-user-dirs-update 2>/dev/null || true
 
 # Configuração do Satty (Screenshot)
 info "Configurando o Satty para captura de tela..."
@@ -382,10 +387,12 @@ if [ -f "$SCRIPT_DIR/configs/greetd-config.toml" ]; then
     success "Greetd configurado com sucesso!"
 fi
 
-# Configuração do Idioma e Teclado
-info "Definindo locale pt_BR.UTF-8 e teclado ABNT2..."
-sudo localectl set-locale LANG=pt_BR.UTF-8 || true
-sudo localectl set-keymap br-abnt2 || true
+# Configuração do Teclado e Idioma
+if [ -z "$LANG" ] || [ "$LANG" = "C" ] || [ "$LANG" = "C.UTF-8" ]; then
+    info "Definindo locale pt_BR.UTF-8 e teclado ABNT2..."
+    sudo localectl set-locale LANG=pt_BR.UTF-8 || true
+    sudo localectl set-keymap br-abnt2 || true
+fi
 
 # ==============================================================================
 # ETAPA 9: HABILITAÇÃO DOS SERVIÇOS DO SISTEMA

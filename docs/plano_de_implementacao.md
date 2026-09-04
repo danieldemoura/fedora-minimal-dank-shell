@@ -110,6 +110,7 @@ Abaixo está o catálogo detalhado de **todos os pacotes** instalados pelo `setu
 - **`nano`**: Editor de textos no terminal simples e direto.
 - **`bash-completion`**: Preenchimento automático de comandos e argumentos no Bash via tecla Tab.
 - **`htop`**: Monitor interativo de recursos (CPU, RAM, Processos).
+- **`xdg-user-dirs`**: Gerador automático da estrutura universal de diretórios pessoais (`Downloads`, `Documentos`, `Imagens`, `Vídeos`, `Música`, `Área de trabalho`) no idioma nativo selecionado pelo usuário no instalador do sistema.
 - **`greetd`**: Daemon gerenciador de login gráfico minimalista.
 - **`tuigreet`**: Interface de autenticação de usuário para o `greetd`.
 
