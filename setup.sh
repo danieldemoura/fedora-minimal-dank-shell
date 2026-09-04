@@ -373,13 +373,13 @@ sudo dnf install -y --skip-unavailable \
   adwaita-icon-theme \
   hicolor-icon-theme
 
-info "Instalando utilitários essenciais de terminal e XDG..."
+info "Instalando utilitários essenciais de terminal, XDG e leitor de PDF..."
 sudo dnf install -y --skip-unavailable \
   curl \
   wget \
   nano \
   bash-completion \
-  htop \
+  evince \
   xdg-user-dirs
 
 info "Instalando Navegador Web Padrão (Brave Browser via Flathub)..."
