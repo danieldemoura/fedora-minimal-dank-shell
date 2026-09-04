@@ -47,7 +47,7 @@ dnf_install() {
     local success=false
 
     while [ $attempt -le $max_attempts ]; do
-        if sudo dnf install -y --skip-unavailable "$@"; then
+        if sudo dnf install -y --skip-unavailable --setopt=ip_resolve=4 "$@"; then
             success=true
             break
         fi
@@ -166,6 +166,20 @@ esac
 # ETAPA 2: REPOSITÓRIOS BASE (RPM FUSION & FLATHUB)
 # ==============================================================================
 section "ETAPA 2: Configuração de Repositórios (RPM Fusion, Flathub & COPRs)"
+
+info "Otimizando a resolução de rede do DNF (IPv4 forçado para evitar timeouts de DNS em VMs)..."
+sudo mkdir -p /etc/dnf
+if ! grep -q "ip_resolve=4" /etc/dnf/dnf.conf 2>/dev/null; then
+    cat << 'EOF' | sudo tee -a /etc/dnf/dnf.conf >/dev/null
+
+# Otimizações de rede do DNF para resolver timeouts de DNS em VMs
+ip_resolve=4
+fastestmirror=True
+max_parallel_downloads=5
+retries=10
+timeout=30
+EOF
+fi
 
 info "Atualizando os repositórios existentes do DNF..."
 sudo dnf upgrade --refresh -y
