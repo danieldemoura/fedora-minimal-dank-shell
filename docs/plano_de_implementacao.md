@@ -169,3 +169,21 @@ setup.sh (Executado no Fedora Minimal)
                 ├── Pergunta se deseja iniciar o instalador oficial do Dank Material Shell agora.
                 └── Executa: curl -fsSL https://install.danklinux.com | sh
 ```
+
+---
+
+## 🛡️ Boas Práticas e Recomendações de Manutenção do Sistema
+
+### 1. Alternância de GPUs Híbridas (`switcheroo-control`)
+Em notebooks com gráficos híbridos (Intel/AMD + NVIDIA), o daemon `switcheroo-control` é ativado de forma segura no script via `systemctl enable switcheroo-control || true`. As unidades systemd do Fedora já possuem a diretiva `Wants=udev.service` por padrão, garantindo que os drivers da NVIDIA estejam totalmente inicializados pelo kernel antes de o daemon aceitar requisições de alternância de GPU no Wayland.
+
+### 2. Gerenciamento dos Repositórios COPR (`avengemedia/dms` e `solopasha/hyprland`)
+O repositório COPR `avengemedia/dms` é a fonte **oficial e direta** mantida pelos desenvolvedores do Dank Linux. Para evitar que qualquer atualização futura do DNF fique bloqueada por conta de builds temporários em COPRs, todas as rotinas de instalação do script utilizam `--skip-unavailable` e o DNF continua atualizando os pacotes da base do Fedora normalmente.
+
+### 3. Persistência de Configurações (Dotfiles e Backup)
+Em instalações minimalistas customizadas, a pasta pessoal de configurações (`~/.config/`) concentra toda a identidade visual e atalhos do sistema (Dank Shell, Niri, Kitty, Satty). Recomenda-se realizar o backup periódico dessas pastas.
+- **Comando rápido para backup dos seus dotfiles:**
+  ```bash
+  tar -czvf ~/backup-dotfiles-$(date +%Y%m%d).tar.gz ~/.config/dms ~/.config/niri ~/.config/kitty
+  ```
+
