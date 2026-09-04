@@ -270,7 +270,7 @@ sudo dnf install -y --skip-unavailable \
   x264 \
   x265 \
   dav1d \
-  ffmpeg-libs
+  ffmpeg-libs || true
 
 success "Codecs de mídia instalados!"
 
