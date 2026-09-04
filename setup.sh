@@ -374,6 +374,13 @@ if [ -f "$SCRIPT_DIR/configs/portals.conf" ]; then
     success "Configuração de Portais copiada para /etc/xdg/xdg-desktop-portal/portals.conf"
 fi
 
+# Configuração de Variáveis do Flatpak (Ícones e Atalhos)
+info "Configurando integração de ícones e atalhos do Flatpak..."
+sudo mkdir -p /etc/profile.d
+cat << 'EOF' | sudo tee /etc/profile.d/flatpak-env.sh >/dev/null
+export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
+EOF
+
 # Configuração do Greetd (Tela de Login)
 info "Configurando o Greetd para login gráfico com senha..."
 if [ -f "$SCRIPT_DIR/configs/greetd-config.toml" ]; then
