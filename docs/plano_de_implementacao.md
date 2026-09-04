@@ -12,7 +12,8 @@
 | **Compatibilidade de Hardware** | **Universal** (Notebooks e Desktops; Intel, AMD e NVIDIA). Detecção automática via `lspci` para GPU e chassis type (`/sys/class/dmi/id/chassis_type`). |
 | **GPU Híbrida (Dual GPU)** | Configuração e ativação automática do **`switcheroo-control`** para alternância dinâmica D-Bus entre GPU integrada (Intel/AMD) e dedicada (NVIDIA). |
 | **Login e Autenticação** | **Sem Auto-login**. Tela de login gráfica via `greetd` + `tuigreet` habilitada. |
-| **Aplicativos de Dev / Pessoais** | **REMOVIDOS**. O script **NÃO** instalará VS Code, Git, FNM, Node.js, Podman, Brave, Discord, etc. O sistema fica 100% limpo para o usuário instalar o que quiser após o boot. |
+| **Navegador Web Padrão** | **Brave Browser** (instalado via Flathub) para garantir navegação segura com bloqueio de anúncios out-of-the-box. |
+| **Aplicativos de Dev / Pessoais** | **LIMPO**. O script não instalará VS Code, FNM, Node.js, Podman, Discord, etc. O sistema fica limpo para o usuário instalar suas ferramentas de desenvolvimento pessoais no pós-instalação. |
 | **Gestão de Bateria & Energia** | **Adaptativa**. Se for Notebook: ativa `power-profiles-daemon` + `upower` + `brightnessctl`. Se for Desktop: otimizações de desempenho sem limitação de bateria. |
 | **Screenshots & Anotações** | **`grim + slurp + satty`** (Wayland GTK4). Pressionar `Print` abre seleção de área, permite desenhar setas, escrever textos, aplicar **blur/desfoque em dados sensíveis**, copiar para o clipboard ou salvar em arquivo. |
 | **Polkit Agent (Senha Sudo)** | **Polkit Agent GTK4 Nativo** (integrado ao Dank Material Shell em Wayland com suporte a temas de cores dinâmicos). |
@@ -96,6 +97,7 @@ Abaixo está o catálogo detalhado de **todos os pacotes** instalados pelo `setu
 - **`unrar`**: Extração de arquivos compactados em formato `.rar`.
 
 ### 📸 6. Captura de Tela, Fontes, Visual & Display Manager
+- **`com.brave.Browser`**: Navegador Web moderno com foco em privacidade e bloqueio automático de anúncios/trackers (instalado via Flathub).
 - **`grim`**: Ferramenta nativa de captura de telas do compositor Wayland.
 - **`slurp`**: Ferramenta interativa de seleção de área da tela com o mouse no Wayland.
 - **`satty`**: Utilitário GTK4 de edição de captura de tela (desenhar, colocar texto, setas, retângulos e **aplicar blur em senhas/dados sensíveis**).

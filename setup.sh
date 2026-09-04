@@ -343,10 +343,13 @@ sudo dnf install -y --skip-unavailable \
   bash-completion \
   htop
 
+info "Instalando Navegador Web Padrão (Brave Browser via Flathub)..."
+sudo flatpak install -y flathub com.brave.Browser 2>/dev/null || true
+
 info "Instalando Display Manager (greetd) para login gráfico com senha..."
 sudo dnf install -y --skip-unavailable greetd tuigreet
 
-success "Ferramentas visuais e fontes instaladas!"
+success "Ferramentas visuais, navegador e fontes instalados!"
 
 # ==============================================================================
 # ETAPA 8: APLICAÇÃO DE CONFIGURAÇÕES (DOTFILES)

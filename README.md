@@ -82,6 +82,7 @@ chmod +x setup.sh
 | **Nautilus & Arquivos** | `nautilus` / `gvfs` / `udisks2` | Gerenciador de arquivos, montagem automática MTP/USB/SMB |
 | | `glycin-thumbnailer` / `ffmpegthumbnailer` | Miniaturas de fotos, imagens vetor, WebP, AVIF e vídeos |
 | | `file-roller` / `p7zip` / `zstd` / `unzip` | Extração ultra-rápida de arquivos comprimidos |
+| **Navegador Web** | `com.brave.Browser` | Navegador Web focado em privacidade e bloqueio automático de anúncios (Flathub) |
 | **Visual & Screenshots**| `grim` / `slurp` / `satty` | Captura de tela com anotação (setas, textos) e **desfoque/blur de dados sensíveis** |
 | | `google-noto-fonts` / `jetbrains-mono-nerd-font` | Fontes completas, Emojis em HD e ícones para o terminal/shell |
 | | `greetd` / `tuigreet` | Display Manager para login gráfico com senha |
