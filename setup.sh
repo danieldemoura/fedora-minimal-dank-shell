@@ -40,6 +40,29 @@ section() {
     echo -e "${BLUE}======================================================================${RESET}\n"
 }
 
+# --- FUNÇÃO DE INSTALAÇÃO DNF COM RETENTATIVAS E TRANSPARÊNCIA ---
+dnf_install() {
+    local max_attempts=3
+    local attempt=1
+    local success=false
+
+    while [ $attempt -le $max_attempts ]; do
+        if sudo dnf install -y --skip-unavailable "$@"; then
+            success=true
+            break
+        fi
+        warning "Tentativa $attempt de $max_attempts falhou devido a oscilação de rede/espelho. Retentando em 3 segundos..."
+        sleep 3
+        attempt=$((attempt + 1))
+    done
+
+    if [ "$success" = false ]; then
+        error "⚠️ FALHA CRÍTICA DE REDE: Não foi possível baixar/instalar os pacotes: $*"
+        error "Verifique sua conexão de internet. Você precisará instalar esses pacotes manualmente depois."
+        return 1
+    fi
+}
+
 # --- BANNER ---
 clear
 echo -e "${CYAN}"
@@ -261,7 +284,7 @@ info "Instalando suíte multimídia completa do RPM Fusion..."
 sudo dnf install -y --skip-unavailable @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin || true
 
 info "Instalando plugins de áudio e vídeo adicionais (H.264, HEVC/H.265, AV1, VP8/VP9, openh264)..."
-sudo dnf install -y --skip-unavailable \
+dnf_install \
   gstreamer1-plugins-bad-freeworld \
   gstreamer1-plugins-ugly \
   gstreamer1-plugin-openh264 \
@@ -270,7 +293,7 @@ sudo dnf install -y --skip-unavailable \
   x264 \
   x265 \
   dav1d \
-  ffmpeg-libs || true
+  ffmpeg-libs || warning "Alguns codecs falharam após 3 tentativas de rede. Você pode instalar manualmente depois."
 
 success "Codecs de mídia instalados!"
 
